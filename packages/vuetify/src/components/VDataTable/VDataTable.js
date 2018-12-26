@@ -68,6 +68,7 @@ export default {
   computed: {
     classes () {
       return {
+        'fixed-columns-table': this.getFixedColumnLeft(),
         'v-datatable v-table': true,
         'v-datatable--select-all': this.selectAll !== false,
         ...this.themeClasses
@@ -103,7 +104,11 @@ export default {
   },
 
   render (h) {
-    const tableOverflow = h(VTableOverflow, {}, [
+    const totalFixedWidth = this.getFixedColumnLeft()
+    const tableOverflow = h(VTableOverflow, {
+      // hard code to fix left columns with px unit for now
+      style: totalFixedWidth ? { marginLeft: `${totalFixedWidth}px` } : {}
+    }, [
       h('table', {
         'class': this.classes
       }, [
@@ -113,7 +118,9 @@ export default {
       ])
     ])
 
-    return h('div', [
+    return h('div', {
+      'class': 'v-datatable-root'
+    }, [
       tableOverflow,
       this.genActionsFooter()
     ])
