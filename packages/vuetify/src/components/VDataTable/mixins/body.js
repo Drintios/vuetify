@@ -33,6 +33,26 @@ export default {
 
       return this.genTR([transition], { class: 'v-datatable__expand-row' })
     },
+    augmentRow (row) {
+      const tds = row.tag === 'td' ? [row]
+        : (this.hasTag(row, 'td') ? row : row[0].children)
+
+      let i = 0
+      for (const td of tds) {
+        if (this.headers[i].fixed === true && td.tag === 'td') {
+          td.data = td.data || {}
+          td.data.class = `${td.data['class'] || ''} fixed-column`.trim()
+          td.data.style = {
+            left: `${this.getFixedColumnLeft(i)}px`,
+            width: this.headers[i].width
+          }
+          if (this.headers[i + 1] && !this.headers[i + 1].fixed) {
+            td.data.class += ' last-fixed-column'
+          }
+          i++
+        }
+      }
+    },
     genFilteredItems () {
       if (!this.$scopedSlots.items) {
         return null
@@ -43,6 +63,8 @@ export default {
         const item = this.filteredItems[index]
         const props = this.createProps(item, index)
         const row = this.$scopedSlots.items(props)
+
+        this.augmentRow(row)
 
         rows.push(this.hasTag(row, 'td')
           ? this.genTR(row, {
