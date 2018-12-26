@@ -45,12 +45,12 @@
       this.getReleases()
 
       this.snackbar({
-        color: 'store',
+        color: 'default',
         close: true,
-        id: 'thanksgiving-sale',
-        text: 'Shop now',
-        msg: 'Holiday Store Sale',
-        to: '/store/',
+        id: '1.4-beta',
+        text: 'Go to Docs',
+        msg: '🎉 **1.4** — The next version of Vuetify is now in beta',
+        href: 'https://next.vuetifyjs.com',
         timeout: 0
       })
     },
