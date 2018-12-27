@@ -94,6 +94,15 @@ export default {
     this.initPagination()
   },
 
+  mounted () {
+    this.$nextTick(() => {
+      const fixedColumns = this.$el.querySelectorAll('td.fixed-column')
+      for (const col of fixedColumns) {
+        col.style.height = `${col.parentElement.getBoundingClientRect().height}px`
+      }
+    })
+  },
+
   methods: {
     hasTag (elements, tag) {
       return Array.isArray(elements) && elements.find(e => e.tag === tag)
