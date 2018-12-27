@@ -2639,6 +2639,17 @@ var __assign = undefined && undefined.__assign || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __values = undefined && undefined.__values || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator],
+        i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function next() {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 
 
 
@@ -2717,6 +2728,24 @@ var VTableOverflow = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["createSi
         });
         this.defaultPagination.sortBy = !this.disableInitialSort && firstSortable ? firstSortable.value : null;
         this.initPagination();
+    },
+    mounted: function mounted() {
+        var e_1, _a;
+        var fixedColumns = this.$el.querySelectorAll('td.fixed-column');
+        try {
+            for (var fixedColumns_1 = __values(fixedColumns), fixedColumns_1_1 = fixedColumns_1.next(); !fixedColumns_1_1.done; fixedColumns_1_1 = fixedColumns_1.next()) {
+                var col = fixedColumns_1_1.value;
+                col.style.height = col.parentElement.getBoundingClientRect().height + "px";
+            }
+        } catch (e_1_1) {
+            e_1 = { error: e_1_1 };
+        } finally {
+            try {
+                if (fixedColumns_1_1 && !fixedColumns_1_1.done && (_a = fixedColumns_1.return)) _a.call(fixedColumns_1);
+            } finally {
+                if (e_1) throw e_1.error;
+            }
+        }
     },
     methods: {
         hasTag: function hasTag(elements, tag) {
