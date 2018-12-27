@@ -95,10 +95,12 @@ export default {
   },
 
   mounted () {
-    const fixedColumns = this.$el.querySelectorAll('td.fixed-column')
-    for (const col of fixedColumns) {
-      col.style.height = `${col.parentElement.getBoundingClientRect().height}px`
-    }
+    this.$nextTick(() => {
+      const fixedColumns = this.$el.querySelectorAll('td.fixed-column')
+      for (const col of fixedColumns) {
+        col.style.height = `${col.parentElement.getBoundingClientRect().height}px`
+      }
+    })
   },
 
   methods: {

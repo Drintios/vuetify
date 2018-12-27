@@ -2730,22 +2730,25 @@ var VTableOverflow = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__["createSi
         this.initPagination();
     },
     mounted: function mounted() {
-        var e_1, _a;
-        var fixedColumns = this.$el.querySelectorAll('td.fixed-column');
-        try {
-            for (var fixedColumns_1 = __values(fixedColumns), fixedColumns_1_1 = fixedColumns_1.next(); !fixedColumns_1_1.done; fixedColumns_1_1 = fixedColumns_1.next()) {
-                var col = fixedColumns_1_1.value;
-                col.style.height = col.parentElement.getBoundingClientRect().height + "px";
-            }
-        } catch (e_1_1) {
-            e_1 = { error: e_1_1 };
-        } finally {
+        var _this = this;
+        this.$nextTick(function () {
+            var e_1, _a;
+            var fixedColumns = _this.$el.querySelectorAll('td.fixed-column');
             try {
-                if (fixedColumns_1_1 && !fixedColumns_1_1.done && (_a = fixedColumns_1.return)) _a.call(fixedColumns_1);
+                for (var fixedColumns_1 = __values(fixedColumns), fixedColumns_1_1 = fixedColumns_1.next(); !fixedColumns_1_1.done; fixedColumns_1_1 = fixedColumns_1.next()) {
+                    var col = fixedColumns_1_1.value;
+                    col.style.height = col.parentElement.getBoundingClientRect().height + "px";
+                }
+            } catch (e_1_1) {
+                e_1 = { error: e_1_1 };
             } finally {
-                if (e_1) throw e_1.error;
+                try {
+                    if (fixedColumns_1_1 && !fixedColumns_1_1.done && (_a = fixedColumns_1.return)) _a.call(fixedColumns_1);
+                } finally {
+                    if (e_1) throw e_1.error;
+                }
             }
-        }
+        });
     },
     methods: {
         hasTag: function hasTag(elements, tag) {

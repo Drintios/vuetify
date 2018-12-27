@@ -111,31 +111,35 @@ exports.default = {
         this.initPagination();
     },
     mounted: function mounted() {
-        var fixedColumns = this.$el.querySelectorAll('td.fixed-column');
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        var _this = this;
 
-        try {
-            for (var _iterator = fixedColumns[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var col = _step.value;
+        this.$nextTick(function () {
+            var fixedColumns = _this.$el.querySelectorAll('td.fixed-column');
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
 
-                col.style.height = col.parentElement.getBoundingClientRect().height + 'px';
-            }
-        } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-        } finally {
             try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                    _iterator.return();
+                for (var _iterator = fixedColumns[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var col = _step.value;
+
+                    col.style.height = col.parentElement.getBoundingClientRect().height + 'px';
                 }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
             } finally {
-                if (_didIteratorError) {
-                    throw _iteratorError;
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
                 }
             }
-        }
+        });
     },
 
     methods: {
