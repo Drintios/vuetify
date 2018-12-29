@@ -3,6 +3,7 @@ import '../../stylus/components/_data-table.styl'
 
 import DataIterable from '../../mixins/data-iterable'
 
+import Colgroup from './mixins/colgroup'
 import Head from './mixins/head'
 import Body from './mixins/body'
 import Foot from './mixins/foot'
@@ -20,7 +21,7 @@ const VTableOverflow = createSimpleFunctional('v-table__overflow')
 export default {
   name: 'v-data-table',
 
-  mixins: [DataIterable, Head, Body, Foot, Progress],
+  mixins: [DataIterable, Colgroup, Head, Body, Foot, Progress],
 
   props: {
     headers: {
@@ -53,6 +54,11 @@ export default {
 
         return items.filter(item => props.some(prop => filter(getObjectValueByPath(item, prop, item[prop]), search)))
       }
+    },
+    fixedHeaders: Boolean,
+    maxHeight: {
+      type: String,
+      default: '60vh'
     }
   },
 
@@ -68,6 +74,7 @@ export default {
   computed: {
     classes () {
       return {
+        'fixed-headers-table': this.fixedHeaders,
         'fixed-columns-table': this.getFixedColumnLeft(),
         'v-datatable v-table': true,
         'v-datatable--select-all': this.selectAll !== false,
@@ -94,15 +101,6 @@ export default {
     this.initPagination()
   },
 
-  mounted () {
-    this.$nextTick(() => {
-      const fixedColumns = this.$el.querySelectorAll('td.fixed-column')
-      for (const col of fixedColumns) {
-        col.style.height = `${col.parentElement.getBoundingClientRect().height}px`
-      }
-    })
-  },
-
   methods: {
     hasTag (elements, tag) {
       return Array.isArray(elements) && elements.find(e => e.tag === tag)
@@ -113,14 +111,16 @@ export default {
   },
 
   render (h) {
-    const totalFixedWidth = this.getFixedColumnLeft()
     const tableOverflow = h(VTableOverflow, {
-      // hard code to fix left columns with px unit for now
-      style: totalFixedWidth ? { marginLeft: `${totalFixedWidth}px` } : {}
+      style: this.fixedHeaders ? {
+        overflowY: 'auto',
+        maxHeight: this.maxHeight
+      } : {}
     }, [
       h('table', {
         'class': this.classes
       }, [
+        this.genTColgroup(),
         this.genTHead(),
         this.genTBody(),
         this.genTFoot()

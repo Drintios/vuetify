@@ -9,11 +9,33 @@ v-table($material)
   .last-fixed-column
     border-right: 1px solid rgba($material.fg-color, $material.divider-percent)
 
+  &.fixed-headers-table
+    thead
+      tr, tr:first-child, th, tr:first-child .fixed-column
+        border-bottom: 0
+
+      th
+        background-color: $material.cards
+        position: sticky
+        top: 0
+        z-index: 1
+
+        &::after
+          background-color: rgba($material.fg-color, $material.divider-percent)
+          bottom: 0
+          content: ''
+          display: block
+          height: 1px
+          left: 0
+          position: absolute
+          width: 100%
+
   thead
     tr
       &:first-child
         &, & .fixed-column
           border-bottom: 1px solid rgba($material.fg-color, $material.divider-percent)
+          z-index: 2
 
     th
       color: rgba($material.text-color, $material.secondary-text-percent)
@@ -29,7 +51,7 @@ v-table($material)
 
       &:hover:not(.v-datatable__expand-row)
         &, & .fixed-column
-          background: $material.table.hover
+          background-color: $material.table.hover
 
   tfoot
     tr
@@ -57,9 +79,9 @@ table.v-table
       &:not(:nth-child(1)), &:first-child
         padding: 0 24px
       &.fixed-column
-        position: absolute
-        display: flex
-        align-items: center
+        background-clip: padding-box
+        position: sticky
+        left: 0
 
   thead
     th

@@ -43,8 +43,7 @@ export default {
           td.data = td.data || {}
           td.data.class = `${td.data['class'] || ''} fixed-column`.trim()
           td.data.style = {
-            left: `${this.getFixedColumnLeft(i)}px`,
-            width: this.headers[i].width
+            left: `${this.getFixedColumnLeft(i)}px`
           }
           if (this.headers[i + 1] && !this.headers[i + 1].fixed) {
             td.data.class += ' last-fixed-column'
