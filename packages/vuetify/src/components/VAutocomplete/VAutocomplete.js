@@ -345,12 +345,18 @@ export default VSelect.extend({
       // has had time to update
       this.$nextTick(() => {
         this.internalSearch = (
-          !this.selectedItems.length ||
-          this.multiple ||
-          this.hasSlot
+          this.multiple &&
+          this.internalSearch &&
+          this.isMenuActive
         )
-          ? null
-          : this.getText(this.selectedItem)
+          ? this.internalSearch
+          : (
+            !this.selectedItems.length ||
+            this.multiple ||
+            this.hasSlot
+          )
+            ? null
+            : this.getText(this.selectedItem)
       })
     },
     updateSelf () {

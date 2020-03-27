@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "1.4.2-modified",
+  "version": "1.4.3-modified",
   "workspaces": [ "packages/*" ],
   "husky": {
     "hooks": {
