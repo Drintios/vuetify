@@ -1,16 +1,8 @@
-.DS_Store
-node_modules/
-.env
+# Ignore everything in dev, use git add -f to add new files
+/dev/
 
-# IDE user config
-.vscode/
-.idea/
-.vs/
-
-# Logs
-yarn-error.log
-npm-debug.log
-lerna-debug.log
-
-# Istanbul coverage
-coverage/
+# Built files
+/es5/
+/lib/
+/lib-temp/
+/dist/

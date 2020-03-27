@@ -1,3 +1,0 @@
-<template slot="items" slot-scope="props">
-  <td>{‌{ props.item.name }‌}</td>
-</template>
